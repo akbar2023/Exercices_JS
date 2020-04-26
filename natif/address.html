@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Addresses</title>
+    <link rel="stylesheet" href="address.css">
+
+    <script src="address.js"></script>
+</head>
+
+<body>
+
+    <select>
+        <option value="-">-- Pas d'address selectionnée --</option>
+    </select>
+
+    <div id="data"></div>
+
+    <div id="addressArea">
+        Address will come here
+    </div>
+
+    <form>
+        <div>
+            <label for="street">Street</label>
+            <input type="text" name="street" placeholder="123 Rue de la Boulangerie">
+        </div>
+
+        <div>
+            <label for="zipCode">Zipcode</label>
+            <input type="text" name="zipCode" placeholder="92100">
+        </div>
+
+        <div>
+            <label for="city">City</label>
+            <input type="text" name="city" placeholder="Baguette">
+        </div>
+
+        <div>
+            <label for="country">Country</label>
+            <input type="text" name="country" placeholder="Blé">
+        </div>
+
+        <div>
+            <input type="submit" value="Enregistrer" />
+        </div>
+    </form>
+
+</body>
+
+</html>

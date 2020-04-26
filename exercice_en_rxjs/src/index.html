@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Data</title>
+    <!-- En Production (fichier généré) ET Développement (fichier servi)  -->
+    <script src="../dist/bundle.js"></script>
+</head>
+
+<body>
+    <form id="addressForm">
+        <h2>Create a new address</h2>
+        <div>
+            <label for="street">Street</label>
+            <input type="text" name="street" id="street">
+        </div>
+
+        <div>
+            <label for="zipCode">Zipcode</label>
+            <input type="text" name="zipCode" id="zipCode">
+        </div>
+
+        <div>
+            <label for="city">City</label>
+            <input type="text" name="city" id="city">
+        </div>
+
+        <div>
+            <label for="country">Country</label>
+            <input type="text" name="country" id="country">
+        </div>
+
+        <div>
+            <input type="submit" value="Enregistrer" id="button"/>
+        </div>
+    </form>
+
+    <div>
+        <h2>Addresses</h2>
+
+        <div id="addresses-center">
+            <select id="address-list"></select>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+
+
+form {
+    margin-top: 50px;
+    border-radius: 5px;
+    background-color: #e4e4de;
+    padding: 20px;
+}
+
+label {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.addressData {
+    border: 2px solid green;
+    padding: 15px;
+    margin: 2px;
+    display: inline-block;
+    background-color: #eee;
+    transition: filter 0.2s;
+}
+
+.addressData:hover{
+    background-color: #fff;
+    border-color: #0d0;
+}
