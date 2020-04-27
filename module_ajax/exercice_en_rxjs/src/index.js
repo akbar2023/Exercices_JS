@@ -10,6 +10,7 @@ auChargement.subscribe(() => {
 
     const form = document.getElementById("addressForm");
     const button = document.getElementById("button");
+    // button.setAttribute("disabled", true);
     const addressList = document.getElementById("address-list");
 
     // _________________ DOM Initial Data Load ____________________
@@ -33,13 +34,15 @@ auChargement.subscribe(() => {
         }
     });
 
+    debugger
+    if("" === form.zipCode) {
+        button.setAttribute("disabled", true);
+    }
 
     // __________________ Form Add ____________________
 
     //const formSubmit = fromEvent(button, 'click');
-    const formSubmit = fromEvent(form, 'submit');
-
-    const subscription = formSubmit.subscribe((event) => {
+    const formSubmit = fromEvent(form, 'submit').subscribe((event) => {
 
         event.preventDefault();
         let zipCode = document.getElementById("zipCode");
@@ -68,31 +71,20 @@ auChargement.subscribe(() => {
             city.value = "";
             country.value = "";
 
-            // ____________ Auto Reload Addresses _____________
+            // ____________ Auto Add new addres to the options ______________
 
-            // debugger;
-            getAddresses.subscribe(data => {
-                // console.log(data);
+            if (200 == info.status) {
                 // debugger;
-                let addresses = data.response;
-
-                if (200 == data.status) {
-                    addressList.innerHTML = "";
-                    addresses.forEach(address => {
-                        let option = document.createElement("option");
-                        option.value = address.id;
-                        option.innerHTML = address.street;
-                        // Address selector
-                        addressList.appendChild(option);
-                    });
-                }
-            });
-
+            let newAddress = info.response;
+            let newOption = document.createElement("option");
+                newOption.value = newAddress.id;
+                newOption.innerHTML = newAddress.street;
+                // Address selector
+                addressList.appendChild(newOption);
+                window.alert("new address added successfully!")
+            }
 
         })
 
     });
-
-    // debugger;
-    // subscription.unsubscribe();
 });
