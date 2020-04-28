@@ -11,7 +11,7 @@
 
 <body>
     <form id="addressForm">
-        <h2>Create a new address</h2>
+        <h2>Create address</h2>
         <div>
             <label for="street">Street</label>
             <input type="text" name="street" id="street">
@@ -33,17 +33,36 @@
         </div>
 
         <div>
-            <input type="submit" value="Enregistrer" id="button"/>
+            <input type="submit" value="Enregistrer" id="buttonForm" disabled />
         </div>
     </form>
 
-    <div>
-        <h2>Addresses</h2>
 
+    <h2>Create User</h2>
+
+    <form id="userForm">
+
+        <div>
+            <label for="firstName">firstName</label>
+            <input type="text" name="firstName" id="firstName">
+        </div>
+        <div>
+            <label for="lastName">lastName</label>
+            <input type="text" name="lastName" id="lastName">
+        </div>
+        <div>
+            <label for="birthDate">birthDate</label>
+            <input type="text" name="birthDate" id="birthDate">
+        </div>
+
+        <h2>Choose Addresses</h2>
         <div id="addresses-center">
             <select id="address-list"></select>
         </div>
-    </div>
+
+    </form>
+
+
 
 </body>
 

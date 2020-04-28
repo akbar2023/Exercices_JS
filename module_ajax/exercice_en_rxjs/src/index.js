@@ -1,5 +1,5 @@
 
-import { fromEvent } from 'rxjs';
+import { fromEvent, zip } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 import { delay } from 'rxjs/operators';
 
@@ -8,8 +8,8 @@ const auChargement = fromEvent(window, "DOMContentLoaded");
 
 auChargement.subscribe(() => {
 
-    const form = document.getElementById("addressForm");
-    const button = document.getElementById("button");
+    const addressForm = document.getElementById("addressForm");
+    const buttonForm = document.getElementById("buttonForm");
     // button.setAttribute("disabled", true);
     const addressList = document.getElementById("address-list");
 
@@ -34,21 +34,29 @@ auChargement.subscribe(() => {
         }
     });
 
-    debugger
-    if("" === form.zipCode) {
-        button.setAttribute("disabled", true);
+    // debugger
+    let zipCode = document.getElementById("zipCode");
+    let street = document.getElementById("street");
+    let city = document.getElementById("city");
+    let country = document.getElementById("country");
+
+    
+    
+    function notDisable() {
+        buttonForm.disabled = zipCode.value === "";
     }
+    
+    // zipCode.oninput = notDisable; // natif
+    fromEvent(zipCode, "input").subscribe(notDisable); // rxjs
 
     // __________________ Form Add ____________________
 
     //const formSubmit = fromEvent(button, 'click');
-    const formSubmit = fromEvent(form, 'submit').subscribe((event) => {
+    const formSubmit = fromEvent(addressForm, 'submit').subscribe((event) => {
 
         event.preventDefault();
-        let zipCode = document.getElementById("zipCode");
-        let street = document.getElementById("street");
-        let city = document.getElementById("city");
-        let country = document.getElementById("country");
+
+
 
 
         ajax({
@@ -73,10 +81,10 @@ auChargement.subscribe(() => {
 
             // ____________ Auto Add new addres to the options ______________
 
-            if (200 == info.status) {
+            if (200 === info.status) {
                 // debugger;
-            let newAddress = info.response;
-            let newOption = document.createElement("option");
+                let newAddress = info.response;
+                let newOption = document.createElement("option");
                 newOption.value = newAddress.id;
                 newOption.innerHTML = newAddress.street;
                 // Address selector
@@ -88,3 +96,13 @@ auChargement.subscribe(() => {
 
     });
 });
+
+
+// _____________________ Create User _____________________
+
+
+auChargement.subscribe(() => {
+
+    const addressForm = document.getElementById("addressForm");
+
+})
