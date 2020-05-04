@@ -1,16 +1,14 @@
 
-import { fromEvent, zip } from 'rxjs';
+import { fromEvent, merge } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
-import { delay } from 'rxjs/operators';
 
 
-const auChargement = fromEvent(window, "DOMContentLoaded");
+const auChargement$ = fromEvent(window, "DOMContentLoaded");
 
-auChargement.subscribe(() => {
+auChargement$.subscribe(() => {
 
     const addressForm = document.getElementById("addressForm");
-    const buttonForm = document.getElementById("buttonForm");
-    // button.setAttribute("disabled", true);
+    const addressButton = document.getElementById("addressButton");
     const addressList = document.getElementById("address-list");
 
     // _________________ DOM Initial Data Load ____________________
@@ -40,24 +38,31 @@ auChargement.subscribe(() => {
     let city = document.getElementById("city");
     let country = document.getElementById("country");
 
-    
-    
+    let inputs = [zipCode, street, street, city, country];
+
+
+    // _______________ Form Validation ________________
+
     function notDisable() {
-        buttonForm.disabled = zipCode.value === "";
+        addressButton.disabled = (zipCode.value === "" || street.value === "" || city.value == "" || country.value == "");
     }
-    
+
     // zipCode.oninput = notDisable; // natif
-    fromEvent(zipCode, "input").subscribe(notDisable); // rxjs
+    const zipCode$ = fromEvent(zipCode, "input");
+    const steet$ = fromEvent(street, "input");
+    const city$ = fromEvent(city, "input");
+    const country$ = fromEvent(country, "input");
 
-    // __________________ Form Add ____________________
+    const allInputs$ = merge(zipCode$, steet$, city$, country$);
 
-    //const formSubmit = fromEvent(button, 'click');
-    const formSubmit = fromEvent(addressForm, 'submit').subscribe((event) => {
+    allInputs$.subscribe(notDisable);
+
+
+    // __________________ Form Add Address ____________________
+
+    const formSubmit$ = fromEvent(addressForm, 'submit').subscribe(() => {
 
         event.preventDefault();
-
-
-
 
         ajax({
             url: "http://localhost:8082/addresses",
@@ -71,19 +76,18 @@ auChargement.subscribe(() => {
                 city: city.value,
                 country: country.value,
             }
-        }).subscribe(info => {
+        }).subscribe(data => {
             // debugger
-            console.log("--Success!", info.response);
-            zipCode.value = "";
-            street.value = "";
-            city.value = "";
-            country.value = "";
+            console.log("--Success!", data.response);
 
-            // ____________ Auto Add new addres to the options ______________
+            for(let i = 0; i < inputs.length; i++) {
+                inputs[i].value = "";
+            }
 
-            if (200 === info.status) {
-                // debugger;
-                let newAddress = info.response;
+            // ____________ Auto Add new addres to the options list ______________
+
+            if (200 === data.status) {
+                let newAddress = data.response;
                 let newOption = document.createElement("option");
                 newOption.value = newAddress.id;
                 newOption.innerHTML = newAddress.street;
@@ -101,8 +105,35 @@ auChargement.subscribe(() => {
 // _____________________ Create User _____________________
 
 
-auChargement.subscribe(() => {
+auChargement$.subscribe(() => {
 
-    const addressForm = document.getElementById("addressForm");
+    const userForm = document.getElementById("userForm");
+    const userButton = document.getElementById("userButton");
+
+    let firstName = document.getElementById("firstName");
+    let lastName = document.getElementById("lastName");
+    let birthDate = document.getElementById("birthDate");
+    let selectedAddress = document.getElementById("address-list");
+
+    fromEvent(userForm, "submit").subscribe(() => {
+        event.preventDefault();
+        ajax({
+            url: "http://localhost:8082/persons/panda",
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: {
+                firstName: firstName.value,
+                lastName: lastName.value,
+                birthDate: birthDate.value,
+                address: selectedAddress.value
+            }
+        }).subscribe(data => {
+            debugger;
+            console.log("--Success!", data.response);
+        })
+        
+    })
 
 })
