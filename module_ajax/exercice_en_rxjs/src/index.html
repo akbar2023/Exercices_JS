@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Data</title>
+    <link rel="stylesheet" href="style.css">
     <!-- En Production (fichier généré) ET Développement (fichier servi)  -->
     <script src="../dist/bundle.js"></script>
 </head>
 
 <body>
     <form id="addressForm">
-        <h2>Create address</h2>
+        <h2>Create Address</h2>
         <div>
             <label for="street">Street</label>
             <input type="text" name="street" id="street">
@@ -33,7 +34,7 @@
         </div>
 
         <div>
-            <input type="submit" value="Save" id="addressButton" disabled />
+            <button type="submit" id="addressButton" disabled>Save</button>
         </div>
     </form>
 
@@ -43,27 +44,27 @@
     <form id="userForm">
 
         <div>
-            <label for="firstName">firstName</label>
+            <label for="firstName">First Name</label>
             <input type="text" name="firstName" id="firstName">
         </div>
         <div>
-            <label for="lastName">lastName</label>
+            <label for="lastName">Last Name</label>
             <input type="text" name="lastName" id="lastName">
         </div>
         <div>
-            <label for="birthDate">birthDate</label>
+            <label for="birthDate">Birth Date</label>
             <input type="text" name="birthDate" id="birthDate">
         </div>
 
         <p><b>Addresse</b></p>
         <div id="addresses-center">
             <select id="address-list">
-                <option value="">Select</option>
+                <option value="" >Select Address</option>
             </select>
         </div>
 
         <div>
-            <input type="submit" value="Save" id="userButton" />
+            <button type="submit" id="userButton" disabled>Save</button>
         </div>
 
     </form>

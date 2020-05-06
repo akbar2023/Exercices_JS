@@ -21,7 +21,7 @@ auChargement$.subscribe(() => {
         // debugger;
         let addresses = data.response;
 
-        if (data.status == 200) {
+        if (data.status === 200) {
             addresses.forEach(address => {
                 let option = document.createElement("option");
                 option.value = address.id;
@@ -43,11 +43,11 @@ auChargement$.subscribe(() => {
 
     // _______________ Form Validation ________________
 
-    function notDisable() {
+    function validForm() {
         addressButton.disabled = (zipCode.value === "" || street.value === "" || city.value == "" || country.value == "");
     }
 
-    // zipCode.oninput = notDisable; // natif
+    // zipCode.oninput = validForm; // natif
     const zipCode$ = fromEvent(zipCode, "input");
     const steet$ = fromEvent(street, "input");
     const city$ = fromEvent(city, "input");
@@ -55,7 +55,7 @@ auChargement$.subscribe(() => {
 
     const allInputs$ = merge(zipCode$, steet$, city$, country$);
 
-    allInputs$.subscribe(notDisable);
+    allInputs$.subscribe(validForm);
 
 
     // __________________ Form Add Address ____________________
@@ -93,7 +93,7 @@ auChargement$.subscribe(() => {
                 newOption.innerHTML = newAddress.street;
                 // Address selector
                 addressList.appendChild(newOption);
-                window.alert("new address added successfully!")
+                window.alert("new address added successfully!");
             }
 
         })
@@ -106,14 +106,29 @@ auChargement$.subscribe(() => {
 
 
 auChargement$.subscribe(() => {
-
     const userForm = document.getElementById("userForm");
     const userButton = document.getElementById("userButton");
-
+    
     let firstName = document.getElementById("firstName");
     let lastName = document.getElementById("lastName");
     let birthDate = document.getElementById("birthDate");
     let selectedAddress = document.getElementById("address-list");
+
+    let inputs = [firstName, lastName, birthDate, selectedAddress];
+    
+    function checkForm() {
+        // debugger
+        userButton.disabled = (firstName.value === "" || lastName.value === "" || birthDate.value === "" || selectedAddress.value === "");
+    }
+    
+    const firstName$ = fromEvent(firstName, "input");
+    const lastName$ = fromEvent(lastName, "input");
+    const birthDate$ = fromEvent(birthDate, "input");
+    const selectedAddress$ = fromEvent(selectedAddress, "input");
+
+    const allInputs$ = merge(firstName$, lastName$, birthDate$, selectedAddress$);
+
+    allInputs$.subscribe(checkForm);
 
     fromEvent(userForm, "submit").subscribe(() => {
         event.preventDefault();
@@ -130,8 +145,17 @@ auChargement$.subscribe(() => {
                 address: selectedAddress.value
             }
         }).subscribe(data => {
-            debugger;
+            // debugger;
             console.log("--Success!", data.response);
+            for(let i = 0; i < inputs.length; i++) {
+                // debugger
+                inputs[i].value = "";
+            }
+            userButton.disabled = true;
+
+            if(data.status === 200) {
+                alert("new person was added successfully!!");
+            }
         })
         
     })
