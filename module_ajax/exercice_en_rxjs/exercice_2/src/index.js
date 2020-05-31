@@ -10,20 +10,20 @@ auChargement$.subscribe(() => {
     const addressForm = document.getElementById("addressForm");
     const addressButton = document.getElementById("addressButton");
     const addressList = document.getElementById("address-list");
-    const search = document.getElementById("search");
+    const search = document.getElementById("search-address");
     const resultList = document.getElementById("result-list");
     const personAddress = document.getElementById("person-address");
-    const selectedId = document.getElementById("person-address-id");
+    const selectedAddress = document.getElementById("person-address-id");
 
     // _________________ Search Address ___________________
     const search$ = fromEvent(search, "input");
-    
+
     search$.subscribe(() => {
         resultList.innerHTML = "";
         // debugger;
         const searchAddress$ = ajax(`http://localhost:8082/addresses/search/${search.value}`);
         searchAddress$.subscribe(result => {
-            if(200 === result.status) {
+            if (200 === result.status) {
                 const searchResults = result.response;
 
                 // debugger
@@ -33,12 +33,12 @@ auChargement$.subscribe(() => {
                     listElement.innerHTML = address.street;
                     listElement.setAttribute("class", "search-results-li");
                     listElement.onclick = () => {
-                        selectedId.value = address.id;
-                        personAddress.innerHTML = 
-                                                    address.street + "<br>" + 
-                                                    address.zipCode + "<br>" + 
-                                                    address.city + "<br>" + 
-                                                    address.country;
+                        selectedAddress.value = address.id;
+                        personAddress.innerHTML =
+                            address.street + "<br>" +
+                            address.zipCode + "<br>" +
+                            address.city + "<br>" +
+                            address.country;
                     }
                     resultList.appendChild(listElement);
                 })
@@ -95,7 +95,7 @@ auChargement$.subscribe(() => {
             // debugger
             console.log("--Success!", data.response);
 
-            for(let i = 0; i < inputs.length; i++) {
+            for (let i = 0; i < inputs.length; i++) {
                 inputs[i].value = "";
             }
 
@@ -123,25 +123,30 @@ auChargement$.subscribe(() => {
 auChargement$.subscribe(() => {
     const userForm = document.getElementById("userForm");
     const userButton = document.getElementById("userButton");
-    
-    let firstName = document.getElementById("firstName");
-    let lastName = document.getElementById("lastName");
-    let birthDate = document.getElementById("birthDate");
-    let selectedAddress = document.getElementById("person-address-id");
+    const search = document.getElementById("search-address");
 
-    let inputs = [firstName, lastName, birthDate];
-    
+    const firstName = document.getElementById("firstName");
+    const lastName = document.getElementById("lastName");
+    const birthDate = document.getElementById("birthDate");
+    const selectedAddress = document.getElementById("person-address-id");
+
+    const inputs = [firstName, lastName, birthDate];
+
     function checkForm() {
         // debugger
-        userButton.disabled = (firstName.value === "" || lastName.value === "" || birthDate.value === "" || selectedAddress === "");
+        userButton.disabled = (firstName.value === "" || lastName.value === "" || birthDate.value === "" || selectedAddress.value === "");
     }
-    
+
     const firstName$ = fromEvent(firstName, "input");
     const lastName$ = fromEvent(lastName, "input");
     const birthDate$ = fromEvent(birthDate, "input");
-    const selectedAddress$ = fromEvent(selectedAddress, "input");
+    setInterval(() => { // for address check
+        checkForm()
+    }, 1000)
+    const search$ = fromEvent(search, "input");
+    // const selectedAddress$ = fromEvent(selectedAddress, "input");
 
-    const allInputs$ = merge(firstName$, lastName$, birthDate$, selectedAddress$);
+    const allInputs$ = merge(firstName$, lastName$, birthDate$);
 
     allInputs$.subscribe(checkForm);
 
@@ -162,17 +167,17 @@ auChargement$.subscribe(() => {
         }).subscribe(data => {
             // debugger;
             console.log("--Success!", data.response);
-            for(let i = 0; i < inputs.length; i++) {
+            for (let i = 0; i < inputs.length; i++) {
                 // debugger
                 inputs[i].value = "";
             }
             userButton.disabled = true;
 
-            if(data.status === 200) {
+            if (data.status === 200) {
                 alert("new person was added successfully!!");
             }
         })
-        
+
     })
 
 })
