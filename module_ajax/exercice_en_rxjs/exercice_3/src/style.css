@@ -1,0 +1,45 @@
+input, select{
+    height: 20px;
+    width: 200px;
+    border: 2px solid #4e4f4f;
+    border-radius: 15px;
+    display: block;
+    padding-left: 10px;
+}
+
+div {
+    margin: 10px auto;
+}
+
+button {
+    width: 100px;
+    height: 30px;
+    background-color: #37f583bb;
+    border: 2px solid #37f583bb;
+    border-radius: 15px;
+    color: #000;
+}
+
+:disabled {
+    background-color: #cccbca;
+    border: #cccbca;
+}
+
+.search-results-li {
+    list-style: none;
+}
+
+.search-results-li:hover {
+    cursor: pointer;
+    background-color: #f5cd1c;
+}
+
+#person-address {
+    border: 1px solid #464545;
+    color: #fd5555;
+    font-weight: bold;
+}
+
+/* #person-address-id {
+    display: none;
+} */

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Data</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- En Production (fichier généré) ET Développement (fichier servi)  -->
+    <script src="../dist/bundle.js"></script>
+</head>
+
+<body>
+    <form id="addressForm">
+        <h2>Create Address</h2>
+        <div>
+            <label for="street">Street</label>
+            <input type="text" name="street" id="street">
+        </div>
+
+        <div>
+            <label for="zipCode">Zipcode</label>
+            <input type="text" name="zipCode" id="zipCode">
+        </div>
+
+        <div>
+            <label for="city">City</label>
+            <input type="text" name="city" id="city">
+        </div>
+
+        <div>
+            <label for="country">Country</label>
+            <input type="text" name="country" id="country">
+        </div>
+
+        <div>
+            <button type="submit" id="addressButton" disabled>Save</button>
+        </div>
+    </form>
+
+
+    <h2>Create User</h2>
+
+    <form id="userForm">
+
+        <div>
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" id="firstName">
+        </div>
+        <div>
+            <label for="lastName">Last Name</label>
+            <input type="text" name="lastName" id="lastName">
+        </div>
+        <div>
+            <label for="birthDate">Birth Date</label>
+            <input type="text" name="birthDate" id="birthDate">
+        </div>
+
+        <div>
+            <b>search address:</b>
+            <input type="search" id="search-address">
+
+            <div>
+                <ul id="result-list">
+
+                </ul>
+            </div>
+
+            <div>
+                <h4>Selected Address</h4>
+                <input type="hidden" id="person-address-id">
+                <p id="person-address"></p>
+            </div>
+        </div>
+
+        <!-- <p><b>Addresse</b></p>
+        <div id="addresses-center">
+            <select id="address-list">
+                <option value="">Select Address</option>
+            </select>
+        </div> -->
+
+        <div>
+            <button type="submit" id="userButton" disabled>Save</button>
+        </div>
+
+    </form>
+
+
+
+</body>
+
+</html>
