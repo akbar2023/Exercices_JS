@@ -1,4 +1,4 @@
-#JavaScript Exercises Simplon
+# JavaScript Exercises Simplon
 
 - Module Ajax
     - People project
